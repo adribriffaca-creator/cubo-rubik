@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>com.github.adribriffaca_creator.cubo_rubik</id>
+  <name>Simulador Cubo Rubik 3x3</name>
+  <summary>Simulador de cubo de Rubik con motor OpenGL y cronómetro</summary>
+  <description>
+    <p>Un simulador de cubo de Rubik premium con gráficos 3D realistas, controles personalizables y seguimiento de estadísticas.</p>
+  </description>
+  <launchable type="desktop-id">com.github.adribriffaca_creator.cubo_rubik.desktop</launchable>
+  <screenshots>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/adribriffaca-creator/cubo-rubik/main/assets/cubo-rubik.png</image>
+    </screenshot>
+  </screenshots>
+  <content_rating type="oars-1.1" />
+</component>

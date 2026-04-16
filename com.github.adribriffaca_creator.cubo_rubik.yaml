@@ -1,0 +1,24 @@
+app-id: com.github.adribriffaca_creator.cubo_rubik
+runtime: org.kde.Platform
+runtime-version: '6.6'
+sdk: org.kde.Sdk
+command: main.py
+finish-args:
+  - --device=dri
+  - --socket=wayland
+  - --socket=fallback-x11
+  - --share=ipc
+modules:
+  - name: python3-requirements
+    buildsystem: simple
+    build-commands:
+      - pip3 install --prefix=/app PyQt6 PyOpenGL PyQt6-Multimedia
+  - name: cubo-rubik
+    buildsystem: simple
+    build-commands:
+      - install -D main.py /app/bin/main.py
+      - cp -r ui cube_logic.py cube_renderer.py utils assets /app/bin/
+    sources:
+      - type: git
+        url: https://github.com/adribriffaca-creator/cubo-rubik.git
+        tag: main
