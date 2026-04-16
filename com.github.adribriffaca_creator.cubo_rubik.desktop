@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Simulador Cubo Rubik
+Exec=python3 /home/gabrielbriffa/cubo-rubik/main.py
+Path=/home/gabrielbriffa/cubo-rubik
+Icon=/home/gabrielbriffa/cubo-rubik/assets/cubo-rubik.png
+Terminal=false
+Categories=Game;Simulation;
