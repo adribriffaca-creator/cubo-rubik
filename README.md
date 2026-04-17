@@ -33,17 +33,20 @@ El simulador permite el control tanto por mouse como por teclado.
 
 ## 🚀 Instalación y Ejecución
 
-### Requisitos Previos
-Necesitas tener instalado Python 3.10+ y los controladores de video actualizados para soporte OpenGL.
+### 🪟 Windows (Método Fácil)
+1. Ve a la pestaña **[Releases]** en la parte derecha de este repositorio.
+2. Descarga el archivo ejecutable (`.exe` o `.zip`) de la última versión.
+3. Haz doble clic en el archivo para abrir el simulador. ¡No requiere instalación adicional!
 
-### En Fedora Linux
+---
+
+### 🐧 Linux (Instalación Nativa Paso a Paso)
+
+El simulador está optimizado para ejecutarse nativamente en Linux. Sigue los pasos según tu distribución para instalar las dependencias gráficas y ejecutar el juego.
+
+#### 1. Instalar dependencias según tu sistema:
+
+**Ubuntu, Linux Mint, Pop!_OS (Basadas en Debian):**
 ```bash
-# Instalar dependencias del sistema
-sudo dnf install python3-pyqt6 python3-opengl
-
-# Clonar el repositorio
-git clone [https://github.com/adribriffaca-creator/cubo-rubik.git](https://github.com/adribriffaca-creator/cubo-rubik.git)
-cd cubo-rubik
-
-# Ejecutar la aplicación
-python3 main.py
+sudo apt update
+sudo apt install python3-pyqt6 python3-opengl git
