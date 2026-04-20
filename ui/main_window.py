@@ -13,8 +13,12 @@ from ui.panels import LeftPanel, RightPanel
 from ui.celebration import CelebrationOverlay
 from utils.storage import save_progress, load_progress
 
-def generate_victory_sound(filename="victory.wav"):
-    if os.path.exists(filename): return
+def generate_victory_sound():
+    from pathlib import Path
+    config_dir = os.path.join(Path.home(), ".config", "cubo-rubik")
+    os.makedirs(config_dir, exist_ok=True)
+    filename = os.path.join(config_dir, "victory.wav")
+    if os.path.exists(filename): return filename
     sample_rate = 44100
     notes = [(261.63, 0.15), (329.63, 0.15), (392.00, 0.15), (523.25, 0.4)]
     with wave.open(filename, "w") as f:
@@ -27,6 +31,7 @@ def generate_victory_sound(filename="victory.wav"):
                 envelope = math.sin(math.pi * i / num_samples)
                 value = int(envelope * 32767.0 * math.sin(2.0 * math.pi * freq * i / sample_rate))
                 f.writeframesraw(value.to_bytes(2, byteorder="little", signed=True))
+    return filename
 
 class KeyConfigDialog(QDialog):
     def __init__(self, current_mapping, parent=None):
@@ -118,9 +123,9 @@ class MainWindow(QMainWindow):
         self.time_elapsed_ms = 0
         self.is_timing = False
 
-        generate_victory_sound()
+        snd_file = generate_victory_sound()
         self.victory_sound = QSoundEffect()
-        self.victory_sound.setSource(QUrl.fromLocalFile(os.path.abspath("victory.wav")))
+        self.victory_sound.setSource(QUrl.fromLocalFile(os.path.abspath(snd_file)))
         self.victory_sound.setVolume(0.8)
         
         self.setup_ui()
