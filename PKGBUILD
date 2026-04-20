@@ -1,7 +1,7 @@
 # Maintainer: adribriffaca-creator <pomadribriffaca@gmail.com>
 
 pkgname=cubo-rubik-git
-pkgver=r13.857ca24
+pkgver=r14.fb8b288
 pkgrel=1
 pkgdesc="Simulador realista de Cubo de Rubik en 3D con Python y OpenGL"
 arch=('any')
@@ -33,10 +33,10 @@ package() {
   chmod +x "$pkgdir/usr/bin/cubo-rubik"
   
   # Archivo Desktop
-  install -Dm644 com.github.adribriffaca_creator.cubo_rubik.desktop "$pkgdir/usr/share/applications/cubo-rubik.desktop"
+  install -Dm644 com.github.adribriffaca_creator.cubo_rubik.desktop "$pkgdir/usr/share/applications/com.github.adribriffaca_creator.cubo_rubik.desktop"
   
   # Icono
-  install -Dm644 assets/cubo-rubik.png "$pkgdir/usr/share/icons/hicolor/256x256/apps/cubo-rubik.png"
+  install -Dm644 assets/cubo-rubik.png "$pkgdir/usr/share/icons/hicolor/256x256/apps/com.github.adribriffaca_creator.cubo_rubik.png"
   
   # Permisos correctos
   find "$pkgdir/opt/cubo-rubik" -type d -exec chmod 755 {} \;

@@ -18,6 +18,9 @@ modules:
     build-commands:
       - install -D main.py /app/bin/main.py
       - cp -r ui cube_logic.py cube_renderer.py utils assets /app/bin/
+      - install -Dm644 com.github.adribriffaca_creator.cubo_rubik.desktop /app/share/applications/com.github.adribriffaca_creator.cubo_rubik.desktop
+      - install -Dm644 assets/cubo-rubik.png /app/share/icons/hicolor/256x256/apps/com.github.adribriffaca_creator.cubo_rubik.png
+      - install -Dm644 com.github.adribriffaca_creator.cubo_rubik.metainfo.xml /app/share/metainfo/com.github.adribriffaca_creator.cubo_rubik.metainfo.xml
     sources:
       - type: git
         url: https://github.com/adribriffaca-creator/cubo-rubik.git
