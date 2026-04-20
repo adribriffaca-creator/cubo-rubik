@@ -1,8 +1,10 @@
 [Desktop Entry]
+Version=1.0
 Type=Application
 Name=Simulador Cubo Rubik
-Exec=python3 /home/gabrielbriffa/cubo-rubik/main.py
-Path=/home/gabrielbriffa/cubo-rubik
-Icon=/home/gabrielbriffa/cubo-rubik/assets/cubo-rubik.png
+Comment=Simulador realista de Cubo de Rubik en 3D
+Exec=cubo-rubik
+Icon=cubo-rubik
 Terminal=false
 Categories=Game;Simulation;
+StartupNotify=true
