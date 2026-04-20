@@ -4,6 +4,7 @@ import wave
 import math
 from PyQt6.QtWidgets import QMainWindow, QWidget, QHBoxLayout, QVBoxLayout, QLabel, QDialog, QGridLayout, QPushButton, QLineEdit
 from PyQt6.QtCore import Qt, QTimer, QUrl
+from PyQt6.QtGui import QQuaternion, QVector3D
 from PyQt6.QtMultimedia import QSoundEffect
 
 from cube_logic import RubiksCubeLogic
@@ -263,7 +264,9 @@ class MainWindow(QMainWindow):
         self.left_panel.history_list.clear()
         self.left_panel.moves_label.setText("Movimientos: 0")
         if reset_camera:
-            self.renderer.rot_x, self.renderer.rot_y = 25.0, -45.0
+            q_x = QQuaternion.fromAxisAndAngle(1.0, 0.0, 0.0, 25.0)
+            q_y = QQuaternion.fromAxisAndAngle(0.0, 1.0, 0.0, -45.0)
+            self.renderer.rotation = q_x * q_y
         self.renderer.update()
 
     def configure_keys(self):
@@ -274,15 +277,11 @@ class MainWindow(QMainWindow):
         self.setFocus()
 
     def get_relative_face(self, visual_face):
-        rx, ry = math.radians(self.renderer.rot_x), math.radians(self.renderer.rot_y)
         normals = {'U':(0,1,0),'D':(0,-1,0),'F':(0,0,1),'B':(0,0,-1),'R':(1,0,0),'L':(-1,0,0)}
         transformed = {}
         for face, (x, y, z) in normals.items():
-            x1 = x * math.cos(ry) + z * math.sin(ry)
-            z1 = -x * math.sin(ry) + z * math.cos(ry)
-            y2 = y * math.cos(rx) - z1 * math.sin(rx)
-            z2 = y * math.sin(rx) + z1 * math.cos(rx)
-            transformed[face] = (x1, y2, z2)
+            v = self.renderer.rotation.rotatedVector(QVector3D(float(x), float(y), float(z)))
+            transformed[face] = (v.x(), v.y(), v.z())
         if visual_face == 'U': return max(transformed.items(), key=lambda i: i[1][1])[0]
         if visual_face == 'D': return min(transformed.items(), key=lambda i: i[1][1])[0]
         if visual_face == 'R': return max(transformed.items(), key=lambda i: i[1][0])[0]
@@ -306,11 +305,19 @@ class MainWindow(QMainWindow):
             for m in self.cube_logic.history: self.left_panel.history_list.addItem(m)
             self.left_panel.moves_label.setText(f"Movimientos: {len(self.cube_logic.history)}")
             self.time_elapsed_ms = data.get("time_elapsed_ms", 0)
+            
+            rot_data = data.get("camera_rotation")
+            if rot_data:
+                self.renderer.rotation = QQuaternion(rot_data["scalar"], rot_data["x"], rot_data["y"], rot_data["z"])
+                
             self.update_timer_display(tick=False)
             self.renderer.update()
 
     def closeEvent(self, event):
         if self.is_timing: self.stop_timer()
+        rot = self.renderer.rotation
+        rot_data = {"scalar": rot.scalar(), "x": rot.x(), "y": rot.y(), "z": rot.z()}
         save_progress({"cube_state": self.cube_logic.state, "history": self.cube_logic.history, 
-                       "time_elapsed_ms": self.time_elapsed_ms, "key_mapping": self.key_mapping})
+                       "time_elapsed_ms": self.time_elapsed_ms, "key_mapping": self.key_mapping,
+                       "camera_rotation": rot_data})
         event.accept()
