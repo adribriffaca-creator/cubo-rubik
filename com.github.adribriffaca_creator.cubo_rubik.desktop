@@ -8,3 +8,4 @@ Icon=cubo-rubik
 Terminal=false
 Categories=Game;Simulation;
 StartupNotify=true
+StartupWMClass=cubo-rubik
