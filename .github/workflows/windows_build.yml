@@ -21,18 +21,16 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install pyinstaller wheel setuptools
+        pip install pyinstaller
         if (Test-Path requirements.txt) { pip install -r requirements.txt }
 
     - name: Build with PyInstaller
       run: |
         pyinstaller --noconsole --onefile --windowed `
-        --add-data "assets/*;assets" `
-        --add-data "ui/*;ui" `
-        --add-data "utils/*;utils" `
-        --icon="assets/cubo-rubik.png" `
-        --collect-all PyQt6 `
-        --collect-all OpenGL `
+        --add-data "assets;assets" `
+        --add-data "ui;ui" `
+        --add-data "utils;utils" `
+        --icon=assets/cubo-rubik.png `
         --name "Cubo-Rubik" `
         main.py
 
