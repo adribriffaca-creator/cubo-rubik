@@ -239,11 +239,17 @@ class MainWindow(QMainWindow):
                 if self.cube_logic.is_solved():
                     self.stop_timer()
                     self.victory_sound.play()
-                    overlay = CelebrationOverlay(self.left_panel.timer_label.text(), moves_count, self)
-                    overlay.exec()
-                    # Resetea datos sin mover la cámara y devuelve el foco
-                    self.reset_cube(reset_camera=False)
-                    self.setFocus()
+                    
+                    # Ejecutar la celebración fuera del ciclo de renderizado de OpenGL
+                    # para evitar bloqueos y cierres inesperados (segmentation faults)
+                    def show_celebration():
+                        overlay = CelebrationOverlay(self.left_panel.timer_label.text(), moves_count, self)
+                        overlay.exec()
+                        # Resetea datos sin mover la cámara y devuelve el foco
+                        self.reset_cube(reset_camera=False)
+                        self.setFocus()
+                    
+                    QTimer.singleShot(0, show_celebration)
 
         self.renderer.animate_move(face, inverse, on_anim_complete)
         return True
