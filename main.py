@@ -19,10 +19,10 @@ if __name__ == "__main__":
     
     # --- ESTO ES LO QUE SOLUCIONA LA TUERCA (ICONO) EN LINUX ---
     # Debe coincidir exactamente con el nombre de tu archivo .desktop
-    app.setDesktopFileName("cubo-rubik")
+    app.setDesktopFileName("com.github.adribriffaca_creator.cubo_rubik")
     
     # Icono por defecto (fallback) para la ventana y X11
-    icon_path = os.path.join(os.path.dirname(__file__), "assets", "cubo-rubik.png")
+    icon_path = os.path.join(os.path.dirname(__file__), "assets", "cubo-rubik.webp")
     if os.path.exists(icon_path):
         app.setWindowIcon(QIcon(icon_path))
     # -----------------------------------------------------------
