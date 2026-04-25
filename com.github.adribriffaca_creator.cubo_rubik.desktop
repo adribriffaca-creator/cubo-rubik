@@ -8,4 +8,4 @@ Icon=com.github.adribriffaca_creator.cubo_rubik
 Terminal=false
 Categories=Game;Simulation;
 StartupNotify=true
-StartupWMClass=cubo-rubik
+StartupWMClass=com.github.adribriffaca_creator.cubo_rubik
